@@ -1,0 +1,6 @@
+{
+  "plugins": ["stylelint-scss"],
+  "rules": {
+    "max-empty-lines": 2
+  }
+}

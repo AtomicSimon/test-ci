@@ -1,0 +1,25 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    },
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "rules": {
+    "react/jsx-filename-extension": ["error", { "extensions": [".js"] }],
+    "react/prop-types": 0,
+    "no-console": "warn",
+    "eqeqeq": "warn",
+    "semi": "warn",
+    "indent": ["warn", 2, { "SwitchCase": 1 }]
+  }
+}
