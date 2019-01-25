@@ -8,7 +8,7 @@ jobs:
       - image: circleci/node:7.10
     steps:
       - checkout
-      # Download and cache dependencies
+
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
@@ -21,11 +21,34 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+
       - run: npm run build
+
+      - persist_to_workspace:
+          root: "build"
+          paths:
+            - "*"
+
+  deploy:
+    docker:
+      - image: "circleci/python:2.7"
+    steps:
+      - attach_workspace:
+          at: /tmp/build
+
       - aws-s3/sync:
-          from: build
+          from: /tmp/build
           to: "s3://crest-test-release"
           overwrite: true
       - aws-s3/copy:
-          from: build/
+          from: /tmp/build/
           to: "s3://crest-test-release"
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
