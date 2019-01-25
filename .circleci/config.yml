@@ -35,6 +35,7 @@ jobs:
     steps:
       - attach_workspace:
           at: /tmp/build
+      - run: "ls /tmp/build"
 
       - aws-s3/sync:
           from: /tmp/build
