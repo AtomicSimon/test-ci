@@ -4,18 +4,15 @@ orbs:
 jobs:
   build:
     docker:
-      - image: 'circleci/python:2.7'
+      - image: "circleci/python:2.7"
     steps:
       - checkout
       - run: mkdir bucket && echo "lorum ipsum" > bucket/build_asset.txt
       - aws-s3/sync:
           from: bucket
-          to: 's3://crest-test-release/prefix'
-          arguments: |
-            --acl public-read \
-            --cache-control "max-age=86400"
+          to: "s3://crest-test-release/prefix"
           overwrite: true
       - aws-s3/copy:
           from: bucket/build_asset.txt
-          to: 's3://crest-test-release'
-          arguments: '--dryrun'
+          to: "s3://crest-test-release"
+          arguments: "--dryrun"
