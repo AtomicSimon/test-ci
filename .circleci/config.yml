@@ -44,6 +44,7 @@ jobs:
       - aws-s3/copy:
           from: /tmp/build/
           to: "s3://crest-test-release"
+          arguments: "--recursive"
 
 workflows:
   version: 2
